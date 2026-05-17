@@ -1,0 +1,75 @@
+name: Feature Request
+description: Propose a new capability or improvement
+title: "[feat]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing an improvement. Lead with the **problem** you're trying to solve — the implementation details can come later.
+
+  - type: dropdown
+    id: product
+    attributes:
+      label: Affected Product
+      description: Which Thornveil product would this affect?
+      options:
+        - RigRun
+        - Pyros
+        - Mycelium
+        - Agent Factory
+        - New product / Cross-cutting
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: Describe the user-facing problem or workflow this would address. Be concrete.
+      placeholder: "Today I have to... and that's painful because..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed Solution
+      description: Your suggested approach. It's fine to leave this open-ended.
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Other approaches you considered and why you didn't pick them.
+
+  - type: dropdown
+    id: impact
+    attributes:
+      label: Impact
+      description: Who benefits and how broadly?
+      options:
+        - Affects a specific deployment
+        - Affects most users of one product
+        - Affects multiple products / cross-cutting
+        - Required for a federal / regulated use case
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Links, prior art, related issues, deployment constraints, anything else.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-submission checklist
+      options:
+        - label: I searched existing issues and discussions for similar proposals
+          required: true
+        - label: This is a feature request, not a bug report
+          required: true
