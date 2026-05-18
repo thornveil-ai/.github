@@ -19,18 +19,19 @@ Sovereign AI infrastructure for teams that can't — or won't — hand their dat
 
 ## What We Build
 
-Thornveil ships **on-premises AI infrastructure** for defense, regulated industry, and any team that treats its data as a strategic asset. Frontier-grade inference, safety, and orchestration — delivered as signed Go binaries that run on hardware you already own.
+Thornveil ships **on-premises infrastructure** for defense, regulated industry, and any team that treats its data as a strategic asset. Frontier-grade inference, safety, orchestration, and embedded autonomy — delivered as signed binaries that run on hardware you already own.
 
-No Python. No CGO. No cloud dependency. One binary per system.
+No Python. No cloud dependency. One binary per system.
 
 ## The Stack
 
-| System | What it does | Status |
-|---|---|---|
-| **RigRun** | Unlimited local inference. One binary, one GPU, zero subscriptions. | Shipping |
-| **Pyros** | 7-pillar safety perimeter that wraps any LLM — local or remote. | Shipping |
-| **Mycelium** | Distributed mixture-of-experts inference with substitute-on-failure dispatch (USPTO THRN-2026-022). Keeps producing tokens when half the mesh goes dark. | v1.0.0, cosign-signed |
-| **Agent Factory** | Plain-English spec → tested, hardened, deployed AI agent. | 6 agents live |
+| System | What it does |
+|---|---|
+| **RigRun** | Unlimited local LLM inference. One binary, one GPU, zero subscriptions. |
+| **Pyros** | 7-pillar safety perimeter that wraps any LLM — local or remote. Pure Go, no CGO. |
+| **Mycelium** | Distributed mixture-of-experts inference with substitute-on-failure dispatch (USPTO THRN-2026-022). Keeps producing tokens when half the mesh goes dark. |
+| **Agent Factory** | Plain-English spec → tested, hardened, deployed AI agent. |
+| **Meridian** | Memory-safe Rust flight-control firmware. A from-scratch ArduPilot / PX4 alternative on STM32 H7 / F4 / F7. |
 
 ## Off-the-Shelf Agents
 
@@ -47,9 +48,9 @@ Drop-in specialists built on the Thornveil stack and battle-tested on our own po
 
 - **Sovereignty first.** Your data, your hardware, your bill. No exceptions.
 - **One binary, one purpose.** If it needs a Python sidecar or a Kubernetes cluster to start, we didn't ship it.
+- **Memory-safe by default.** Pure Go for the AI stack, pure Rust for embedded. C and CGO require explicit justification.
 - **Signed and reproducible.** Every release is cosign-signed. Provenance is non-negotiable.
 - **Validated internally before sold externally.** Every capability is dogfooded on Thornveil's own roadmap before it leaves the building.
-- **Pure Go where it counts.** Predictable performance, no runtime surprises, no CGO toolchain pain.
 
 ## For Operators
 
