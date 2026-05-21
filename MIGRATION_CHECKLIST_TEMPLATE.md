@@ -22,7 +22,7 @@ Clone this template into a GitHub issue at the start of each per-system migratio
 - [ ] Default branch verified (`main` vs `master` — match repo convention)
 - [ ] `CODEOWNERS` file added from `thornveil-buildout/codeowners/<system>-CODEOWNERS`
 - [ ] Branch protection rules applied (per tier — Tier 1 / Tier 2 / Tier 3-auspex)
-- [ ] Labels synced from `.github/labels.yml` (add this repo to the `label-sync.yml` matrix in the `.github` repo)
+- [ ] Add label-sync caller workflow at `.github/workflows/label-sync.yml` (template below). Verify by triggering it once via `gh api -X POST repos/thornveil-ai/<system>/actions/workflows/label-sync.yml/dispatches -f ref=main` — labels appear under repo Settings → Labels within ~30s.
 - [ ] System's GitHub Project default-repo updated from `meridian` to this repo
 - [ ] Dependabot enabled (alerts on; security updates per system policy in the catalog)
 - [ ] Secret scanning + push protection enabled
@@ -32,6 +32,28 @@ Clone this template into a GitHub issue at the start of each per-system migratio
 - [ ] Update `MIGRATION_CATALOG.md`: change migration-status pill at top of this system's section to "Migrated"
 - [ ] Migration & Onboarding Project: close this system's tracking issue
 - [ ] `jeranaias/<system>` replaced with redirect README + archived via GitHub settings (if applicable)
+
+## Label-sync caller workflow template
+
+Drop into `.github/workflows/label-sync.yml` in the new repo at post-transfer:
+
+```yaml
+name: Label sync
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'   # weekly Monday 08:00 UTC
+  workflow_dispatch:
+
+jobs:
+  sync:
+    uses: thornveil-ai/.github/.github/workflows/label-sync.yml@main
+    permissions:
+      contents: read
+      issues: write
+```
+
+The reusable workflow at `thornveil-ai/.github/.github/workflows/label-sync.yml` runs in this repo's context, pulls the canonical labels.yml from the `.github` repo, and applies labels here. No PAT required (same-org workflow_call is allowed by default).
 
 ## Notes
 
