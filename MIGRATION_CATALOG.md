@@ -47,7 +47,7 @@ Holding the PR until `thornveil-ai/auspex#1` (URL straggler sweep) lands and no 
 
 ## Public surface map (Step 6 — 2026-05-21)
 
-Org page transformed from 3 public repos to 9 public repos. Every private flagship system has a corresponding public companion that holds marketing-grade docs, architecture diagrams, get-access CTAs, and (where applicable) API specs — but no implementation source.
+Org page transformed from 3 public repos to 10 public repos. Every private flagship system has a corresponding public companion that holds marketing-grade docs, architecture diagrams, get-access CTAs, and (where applicable) API specs — but no implementation source.
 
 | Private system | Public companion | Companion content |
 |---|---|---|
@@ -60,7 +60,7 @@ Org page transformed from 3 public repos to 9 public repos. Every private flagsh
 | `canopy` | `canopy-preview` | Phase 0 honest framing + 8-layer architecture + per-layer implementation status + hardware tier costs + 4-phase roadmap |
 | `meridian` | `meridian-core` | OSS predecessor (transferred from `jeranaias/meridian-core`) — full 78,000-line Rust autopilot codebase as community reference; productized Thornveil version remains private |
 | `navigator` | (no companion — internal only) | — |
-| `auspex` | (no companion — Tier 3 federal-gated, no public artifacts) | — |
+| `auspex` | `auspex-contact` | Barebones contact-only page (Tier 3 federal-gated). Headline triad "The model proposes / Signet authorizes / Auspex executes only what's allowed", short pitch within ECCN constraints, direct contact card (Jesse Morgan + email + phone). No architecture, no demos, no specs. Per `REPO_STANDARDS.md` Tier 3 posture. |
 
 All 7 public companions pass `REPO_STANDARDS.md` audit: status callout, badge row, README structure, Mermaid diagrams where applicable, License section, "A Thornveil system" footer. Each has CODEOWNERS, label-sync caller workflow, tier1 classic branch protection (signed commits required), and 38 labels synced.
 
