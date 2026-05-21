@@ -140,17 +140,24 @@ Canonical migration reference for the 10 systems consolidating onto `github.com/
 
 - **Tagline:** Professional AI chat. Your AI. Your hardware. Your rules.
 - **Visibility:** Public — marketing (proprietary, no source; IL5 controls implemented)
-- **Migration status:** Needs work (commit big WIP batch + IP scrub + PATENTS.md re-add)
+- **Migration status:** Migrated (2026-05-20 — Step 4 medium tier, system #1)
 - **IP:** Proprietary / trade secret. High-IP internals: `router.go` and `classify.go` (classification-gated routing), `spillage.go` (anti-bypass detection), `thinking.go` (thinking-depth control), `confidence/` package + `research/credibility.go` (multi-signal confidence).
 - **Customer-driven:** Federal pipeline (ATO pending)
-- **Org target:** `thornveil-ai/rigrun` (transfer from `jeranaias/rigrun`)
+- **Org target:** `thornveil-ai/rigrun` (transferred from `jeranaias/rigrun`)
+- **Default branch:** `master`
 
-**Pre-publish blockers (6):**
-- [ ] Commit 40 desktop WIP as feature batch (distribution wizard + Pyros integration + per-conversation research)
-- [ ] `git clean -fd rigrun-desktop-live/ rigrun-desktop/shots/` (shadow checkout + Playwright screenshots)
-- [ ] Decide on `playwright-smoke.mjs` and `demo-mount.tsx` (env-var or discard)
-- [ ] Scrub 8 hardcoded `100.109.172.64` refs in WIP — env-var via `process.env.RIGRUN_BACKEND`
-- [ ] Decide go-module path: keep `github.com/jeranaias/rigrun-tui` or sweep to `thornveil-ai/rigrun/go-server`
+**Pre-publish blockers (5):**
+- [x] Commit 40 desktop WIP as feature batch (commit 4ce307b: 37 files / 3375 insertions — distribution wizard + Pyros engine integration + per-conversation research snapshots, in 3 sub-clusters)
+- [x] Delete `rigrun-desktop-live/` shadow checkout + `rigrun-desktop/shots/` Playwright screenshots
+- [x] `demo-mount.tsx` deleted (temp); `playwright-smoke.mjs` env-var-ized (MYCELIUM_BASE || RIGRUN_BACKEND || placeholder)
+- [x] Scrub hardcoded 100.109.172.64 in DISTRIBUTION_ROADMAP.md, playwright-smoke.mjs, extract-cert-pins.mjs (replaced with `your-rigrun-host.example`)
+- [x] Go module path kept as `github.com/jeranaias/rigrun-tui` per recommendation — Go modules don't require path-matches-repo
+
+**Post-transfer state (commit 937c8de):**
+- [x] CODEOWNERS landed — admin review required on patent-trade-secret subsystems (router_v2, classify, thinking, spillage, confidence)
+- [x] Branch protection: tier2 rulesets — strict (id=16678047) + process (id=16678048)
+- [x] Label-sync caller workflow active — 38 labels propagated
+- [ ] Repo Settings: Dependabot/secret-scan/CodeQL (UI), Project default-repo update (UI), pin on org profile (UI when sequenced)
 
 ---
 
@@ -158,11 +165,30 @@ Canonical migration reference for the 10 systems consolidating onto `github.com/
 
 - **Tagline:** Compute-aware neural architecture topology theory + perception backbone family.
 - **Visibility:** Public — marketing for paper + benchmark page; private for source.
-- **Migration status:** Needs work (3-repo consolidation with `git filter-repo`)
+- **Migration status:** Migrated (2026-05-20 — Step 4 medium tier, system #2 — three-repo consolidation complete)
 - **IP:** Proprietary / trade secret. High-IP internals: `hawkstack/backbone/wem*.py` (backbone family), `hawkstack/training/sgdr.py` + `augment.py` (training recipe), `cli/ladder.py` (calibration table).
 - **Customer-driven:** None directly (research)
-- **Org target:** `thornveil-ai/hawkstack` (transfer from `jeranaias/hawkstack` + subtree-merge `jeranaias/thermalhawk` → `thermalhawk/`)
-- **Canonical-thermal decision:** WEM is canonical. DCNv3 demotes to `thermalhawk/legacy_dcnv3/`.
+- **Org target:** `thornveil-ai/hawkstack` (transferred from `jeranaias/hawkstack` + subtree-merged ThermalHawk standalone into `thermalhawk/legacy_dcnv3/`)
+- **Default branch:** `master`
+- **Canonical-thermal decision (executed):** WEM is canonical at `hawkstack/models/thermalhawk.py`. DCNv3 demoted to `thermalhawk/legacy_dcnv3/` with full 19-commit history preserved.
+
+**Migration milestones:**
+- [x] Phase 1: HawkStack source repo cleanup — 3 cluster commits (da74424 feat NWD/RGBHawk wire-in, 2142d34 improve sgdr/TAL, e0cbb6a docs paper v10) + legacy v1 scaffold delete (b2d4fa6: 10 dirs, 20,673 deletions) + tag v0.3.0-pre-consolidate
+- [x] Phase 2: ThermalHawk standalone cleanup — socom_submission moved to `D:/projects/_archive/`, 828 MB regenerable artifacts discarded, paper reviews + framediff committed (8d0e402), stale `nav/sprint-*` remote branch deleted, tag v-final-standalone
+- [x] Phase 3: `git filter-repo --to-subdirectory-filter thermalhawk` on scratch clone (`/d/projects/_scratch/thermalhawk-rewritten/`), 19 commits rewritten under `thermalhawk/` prefix in 3.45s
+- [x] Phase 4: `git merge --allow-unrelated-histories` thermalhawk-rewritten → hawkstack (4591651), DCNv3 demote (6bf46bf moves 200 files into `legacy_dcnv3/`), GH200 IP scrub to `<gh200>` placeholders (d58e045), .gitignore consolidation (7f49b74), tag v0.4.0-monorepo
+- [x] Phase 5: Transfer to `thornveil-ai/hawkstack`; CODEOWNERS + label-sync caller (3d5e4d8); tier2 rulesets (strict id=16678401, process id=16678402); 38 labels propagated
+
+**Verification:**
+- Total commits in monorepo: **72** (53 hawkstack original + 19 thermalhawk standalone, all reachable)
+- ThermalHawk standalone history reachable via merge second-parent: `git log 4591651^2` shows all 19 commits
+- v-final-standalone tag points to a real ThermalHawk commit (SSH-signed)
+- 200 files now under `thermalhawk/legacy_dcnv3/`; `thermalhawk/` top-level holds only `README.md` (two-lineage doc) + `legacy_dcnv3/` + `checkpoints/`
+
+**Open follow-ups (UI-only):**
+- Archive `jeranaias/thermalhawk` with redirect README pointing to `thornveil-ai/hawkstack/tree/master/thermalhawk` (redirect README content prepared at `/tmp/thermalhawk-redirect/README.md`)
+- Archive `jeranaias/rgbhawk` (already a deprecate-redirect shell — just flip archive flag)
+- DroneBane README submodule reference update: was `git clone --recurse-submodules https://github.com/jeranaias/dronebane.git` — verify auto-redirect handles it or update to point at `thornveil-ai/hawkstack/tree/master/thermalhawk`
 
 **Pre-publish blockers (10):**
 - [ ] Commit HawkStack 31 WIP files in 3 clusters (code+RGBHawk wire-in, sister dir, paper v10)
