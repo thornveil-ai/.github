@@ -1,8 +1,28 @@
-# Label sync workflow. Lives in the .github repo and propagates labels.yml
-# to every repo in the thornveil-ai org that opts in.
+# Label sync workflow.
 #
-# Each opt-in repo just needs a workflow that references this org-default
-# labels.yml, OR can be added to the matrix below to receive labels via PAT.
+# Acts in two modes:
+#
+# 1. Self-sync (push trigger): when .github/labels.yml changes here, sync those
+#    labels onto this (.github) repo. No PAT needed; uses default GITHUB_TOKEN.
+#
+# 2. Reusable callable (workflow_call trigger): downstream org repos call this
+#    workflow from their own .github/workflows/label-sync.yml to sync labels
+#    from this canonical labels.yml onto themselves. Runs in the caller's
+#    context, so the labels land on the caller. No PAT needed (same-org
+#    workflow_call is allowed by default).
+#
+# When migrating a new repo to thornveil-ai, add a 10-line caller workflow to
+# the new repo at .github/workflows/label-sync.yml — template:
+#
+#   name: Label sync
+#   on:
+#     schedule: [{ cron: '0 8 * * 1' }]
+#     workflow_dispatch:
+#   jobs:
+#     sync:
+#       uses: thornveil-ai/.github/.github/workflows/label-sync.yml@main
+#       permissions:
+#         issues: write
 
 name: Label sync
 
@@ -12,10 +32,11 @@ on:
     paths:
       - '.github/labels.yml'
       - '.github/workflows/label-sync.yml'
+  workflow_call:
   workflow_dispatch:
 
 jobs:
-  sync-this-repo:
+  sync:
     runs-on: ubuntu-latest
     permissions:
       issues: write
@@ -23,37 +44,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: EndBug/label-sync@v2
         with:
+          # Always pull canonical label set from the .github repo.
+          # When this job runs in a downstream caller, source-repo fetches the
+          # org's labels.yml; the action then applies them to the caller repo.
+          source-repo: thornveil-ai/.github
           config-file: .github/labels.yml
           delete-other-labels: false
-
-  # Propagate to all org repos. Requires a PAT with `repo` scope stored
-  # as ORG_LABEL_SYNC_PAT secret. Each repo listed here gets the labels.
-  # Add repos as they migrate in.
-  sync-org-repos:
-    runs-on: ubuntu-latest
-    needs: sync-this-repo
-    strategy:
-      fail-fast: false
-      matrix:
-        repo:
-          - meridian
-          # Add as repos migrate to thornveil-ai:
-          # - signet
-          # - alchemist
-          # - pyros
-          # - mycelium
-          # - rigrun
-          # - hawkstack
-          # - canopy
-          # - navigator
-          # - auspex
-    steps:
-      - uses: actions/checkout@v4
-      - name: Sync labels to ${{ matrix.repo }}
-        uses: EndBug/label-sync@v2
-        with:
-          token: ${{ secrets.ORG_LABEL_SYNC_PAT }}
-          config-file: .github/labels.yml
-          delete-other-labels: false
-          repo: thornveil-ai/${{ matrix.repo }}
-        
