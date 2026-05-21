@@ -62,18 +62,26 @@ Canonical migration reference for the 10 systems consolidating onto `github.com/
 
 - **Tagline:** Algorithm-aware C-to-Rust translation. One command. Local LLM only.
 - **Visibility:** Public — source (Apache-2.0)
-- **Migration status:** Ready
+- **Migration status:** Migrated (2026-05-20 — Step 3 cascade, system #2)
 - **IP:** Open source (Apache-2.0). No Meridian source embedded (verified — text-only references).
 - **Customer-driven:** None
-- **Org target:** `thornveil-ai/alchemist` (transfer from `jeranaias/alchemist`)
-- **State note:** `PRODUCTION_READINESS.md` self-classifies as research prototype. README oversells.
+- **Org target:** `thornveil-ai/alchemist` (transferred from `jeranaias/alchemist`)
+- **State note:** Honest framing applied — status badge now "research-prototype" linking to PRODUCTION_READINESS.md
 
 **Pre-publish blockers (5):**
-- [ ] Reconcile README vs `PRODUCTION_READINESS.md` (pick honest framing)
-- [ ] Update test-count badge: 201 → 543
-- [ ] Parameterize 7 hardcoded `100.109.172.64:8090` refs via `ALCHEMIST_ENDPOINT` env var
-- [ ] Register `thornveil-alchemist` PyPI name (`alchemist` is squatted)
-- [ ] Add `[project.urls]`, `authors`, `license` to `pyproject.toml`
+- [x] README softened: status badge "active" -> "research-prototype" linking to PRODUCTION_READINESS.md (commit 38d0395)
+- [x] Test-count badge: 201 -> 543 (commit 38d0395)
+- [x] Endpoint scrub: `100.109.172.64:8090` -> `http://localhost:8090/v1` default + `ALCHEMIST_ENDPOINT` env var override in config.py, client.py, cli.py; docs use `your-llm-host:8090` placeholder. Left `tests/test_scrubber.py:215` alone (redaction-test fixture).
+- [x] PyPI dist name changed to `thornveil-alchemist` in pyproject.toml
+- [x] Added `authors`, `license = Apache-2.0`, `readme`, `[project.urls]` (homepage/repository/issues) to pyproject.toml
+
+**Post-transfer state (commit 5b8bb8a):**
+- [x] CODEOWNERS landed (engineering default, security on anti_stub/scrubber, agents on LLM client, admin on pyproject/workflows)
+- [x] Branch protection: tier1-public-oss applied (enforce_admins=false, code-owner reviews, linear history)
+- [x] Label-sync caller workflow active — 38 labels propagated, verified
+- [x] Fix: untracked accidentally-committed `subjects/zlib` gitlink (commit 6cea337)
+- [ ] Register `thornveil-alchemist` on PyPI before publishing first release (UI: https://pypi.org/account/register/)
+- [ ] Pin on org profile, Dependabot+secret-scan+CodeQL enable, Project default-repo update (UI)
 
 ---
 
@@ -81,17 +89,25 @@ Canonical migration reference for the 10 systems consolidating onto `github.com/
 
 - **Tagline:** Self-sustaining inference engine for local LLMs. One binary, zero deps, 0.31 ms overhead.
 - **Visibility:** Public — marketing (proprietary, no source)
-- **Migration status:** Needs work (small commit + rename finish)
+- **Migration status:** Migrated (2026-05-20 — Step 3 cascade, system #3)
 - **IP:** Proprietary / trade secret. Highest-IP subsystems: `darwinism/`, `allostasis/`+`cascade/`, `immune/`, `twin/`.
 - **Customer-driven:** None directly (consumed by RigRun and Mycelium internally)
-- **Org target:** `thornveil-ai/pyros` (transfer from `jeranaias/pyros`)
+- **Org target:** `thornveil-ai/pyros` (transferred from `jeranaias/pyros`)
+- **Default branch:** `master` (kept as-is per repo convention)
 
 **Pre-publish blockers (5):**
-- [ ] Commit 13 in-flight files (academic refs + SmoothLLM liability hedge + fuzz tests + provider shims)
-- [ ] Finish prometheus→pyros rename: `layerset/defaults.go:8,24`, `e2e_test.go:25-26` env vars, `.gitignore:2-3`
-- [ ] Rename local working directory `D:\projects\prometheus` → `D:\projects\pyros`
-- [ ] Sweep `go.mod` and all imports `jeranaias/pyros` → `thornveil-ai/pyros` after transfer
-- [ ] Cut `v0.2.1` tag + update `CHANGELOG.md` (stuck at v0.1.0)
+- [x] Commit 13 in-flight files (combined into one commit 0d27865 — docs polish + SmoothLLM hedge + fuzz tests + provider shims + rename in one batch for efficiency)
+- [x] Finish prometheus→pyros rename: `layerset/defaults.go:8,24`, `e2e_test.go:25-26` env vars, `.gitignore:2-3` (commit 0d27865)
+- [ ] Rename local working directory `D:\projects\prometheus` → `D:\projects\pyros` (deferred — cosmetic only)
+- [x] Sweep `go.mod` and all imports `jeranaias/pyros` → `thornveil-ai/pyros` post-transfer (commit 7a66bea: 73 files swept; commit 89508b9: fix CONTRIBUTING.md + docs/MODEL_CARD.md stragglers)
+- [x] Cut `v0.2.1` tag (CHANGELOG update deferred for follow-up — tag landed)
+
+**Post-transfer state:**
+- [x] CODEOWNERS landed (agents team on subsystems, admin on darwinism/allostasis/cascade/immune/twin highest-IP files)
+- [x] Branch protection: tier2 rulesets — strict (id=16677633) + process (id=16677634) — signed-commits required no bypass, PR/linear-history admin-bypassable
+- [x] Label-sync caller workflow active — 38 labels propagated, verified
+- [ ] Pin on org profile (TODO), CodeQL/secret-scan enable (UI), Project default-repo update (UI)
+- [ ] CHANGELOG.md update (stuck at v0.1.0 — needs v0.2.0 + v0.2.1 entries written)
 
 ---
 
@@ -188,18 +204,26 @@ Canonical migration reference for the 10 systems consolidating onto `github.com/
 
 - **Tagline:** Multi-modal counter-UAS situational awareness. Replaces DragonOS/WarDragon.
 - **Visibility:** Public — coming soon (private until past Phase 0)
-- **Migration status:** Needs work (private push is ready; public requires closing README/reality gap)
+- **Migration status:** Migrated (2026-05-20 — Step 3 cascade, system #4)
 - **IP:** Eventually AGPL-3.0 (currently kept private until product matures).
 - **Customer-driven:** None yet
-- **Org target:** `thornveil-ai/canopy` (transfer from `jeranaias/canopy`)
-- **Reality check:** Mesh package exists but `cmd/canopyd/main.go` never instantiates it. Decide/classify packages unwired. ML classifiers return `TODO: ONNX Runtime inference`. `make build` will fail (Makefile builds 3 binaries from empty source dirs).
+- **Org target:** `thornveil-ai/canopy` (transferred from `jeranaias/canopy`)
+- **Default branch:** `master`
+- **Reality check:** Mesh package exists but `cmd/canopyd/main.go` never instantiates it. Decide/classify packages unwired. ML classifiers return `TODO: ONNX Runtime inference`. README now states this honestly.
 
 **Pre-publish blockers (5):**
-- [ ] Fix Makefile to only build `canopyd`
-- [ ] Soften README to match Phase 0 reality OR build out the unwired layers
-- [ ] Rewrite "Mycelium-adapted mesh" README language (verified zero Mycelium imports — phrasing is misleading)
-- [ ] Update `go.mod` from `github.com/thornveil/canopy` to `github.com/thornveil-ai/canopy`
-- [ ] Decide LICENSE posture (keep AGPL-3.0 for eventual public release, or temporarily strip for private development)
+- [x] Fix Makefile to only build `canopyd` — canopy-cli + canopy-sim targets commented out as TODO (commit 2964b21)
+- [x] Soften README to Phase 0 reality — new "Status" callout, full Implementation Status table per layer (commit 2964b21)
+- [x] Rewrite "Mycelium-adapted mesh" — replaced with "mDNS-based discovery (independent implementation)" + verified zero Mycelium imports in source
+- [x] `go.mod`: `github.com/thornveil/canopy` → `github.com/thornveil-ai/canopy` + sweep across .go internal imports
+- [x] LICENSE: AGPL-3.0 retained in repo, README notes it activates on public distribution
+
+**Post-transfer state:**
+- [x] CODEOWNERS landed
+- [x] Branch protection: tier2 rulesets — strict (id=16677703) + process (id=16677704)
+- [x] Label-sync caller workflow active — 38 labels propagated, verified
+- [ ] Pin on org profile: NO (Phase 0 — defer until Phase 1+)
+- [ ] When ready for public: flip repo visibility to public, AGPL-3.0 activates automatically
 
 ---
 
