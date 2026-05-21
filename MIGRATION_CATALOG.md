@@ -266,7 +266,7 @@ Canonical migration reference for the 10 systems consolidating onto `github.com/
 
 - **Tagline:** AI red team gated by Signet. Federal/IL5-fit autonomous offensive security.
 - **Visibility:** Public — federal-gated (default posture: hidden from public site entirely)
-- **Migration status:** **DEFERRED by design — org seat-limit issue acknowledged, not blocking.** Local prep work and history cleanup COMPLETE on `jeranaias/auspex` (signed force-push 2026-05-20). Transfer to `thornveil-ai/auspex` returns `thornveil-ai has insufficient collaborator seats` (Team plan seats=1/1). Per user 2026-05-21: "don't worry about seats" — Auspex stays at `jeranaias/auspex` for now with all prep work preserved in case future seat increase or alternate transfer path becomes preferred. Discovery during Navigator migration: **the seat limit only affects TRANSFERS, not new repo CREATE** (`gh api orgs/thornveil-ai/repos` succeeded for Navigator). Auspex could also be re-created fresh on the org if transfer never unblocks, but that loses the 253-commit history.
+- **Migration status:** Migrated (2026-05-21 — Step 5 heavy tier, system #3 — pushed to fresh org repo, bypassed seat-limit transfer block). New home: `thornveil-ai/auspex`. Old `jeranaias/auspex` left in place as GitHub-auto-redirect target — do NOT archive or delete. Method: created `thornveil-ai/auspex` empty via `gh api orgs/thornveil-ai/repos` (new-repo CREATE is unaffected by the seat limit), pushed cleaned-history main from local clone, pushed all 7 tags, swapped `origin` to thornveil-ai and renamed old `origin` → `jeranaias-old`. Commit `02e8b90` (CODEOWNERS + label-sync caller) landed on new main; tier3-auspex.json branch protection + required_signatures applied; label sync ran clean (38 labels). No commits lost — full history preserved.
 - **IP:** Proprietary. **Export-controlled: EAR ECCN 4D004 "intrusion software" with Wassenaar implications** per `EXPORT_CONTROLS.md`.
 
 **What's done (on `jeranaias/auspex`, ready for transfer):**
@@ -276,11 +276,12 @@ Canonical migration reference for the 10 systems consolidating onto `github.com/
 - [x] README sister-project links updated: signet/mycelium/rigrun (incl. `jeranaias.github.io/signet` → `thornveil-ai.github.io/signet`)
 - [x] `.mailmap` consolidates 3 identities → `jesse@thornveil.ai`
 - [x] Force-pushed clean history to `jeranaias/auspex/main` (verified: eng-* dirs now have only README.md + audit-verify.txt, no .hex or chain.jsonl in remote)
-- [x] Local `47d9f06` commit (CODEOWNERS + label-sync caller) staged locally at `/c/Users/jesse/AppData/Local/Temp/auspex_audit` — push after transfer succeeds
+- [x] CODEOWNERS + label-sync caller pushed to `thornveil-ai/auspex/main` as commit `02e8b90` (2026-05-21). Equivalent to the staged `47d9f06` at `/c/Users/jesse/AppData/Local/Temp/auspex_audit` — regenerated on live working tree because the audit-dir clone was abandoned.
 
 **What's blocking (UI-side):**
-- [ ] Resolve `thornveil-ai has insufficient collaborator seats` — likely needs Team plan seat upgrade OR transfer via web UI to see exact seat-impact prompt
-- [ ] After transfer succeeds: push staged CODEOWNERS commit (`47d9f06`), apply tier3-auspex.json branch protection + required_signatures, enable Vigilant Mode + disable Actions on PRs from forks per ECCN 4D004 posture
+- [x] Resolve seat-limit block — **bypassed**: created fresh `thornveil-ai/auspex` via API (new-repo CREATE is unaffected), pushed cleaned main + tags, swapped remotes. Old `jeranaias/auspex` remains as redirect.
+- [x] Post-migration: tier3-auspex.json branch protection applied (`enforce_admins=true`, `require_code_owner_reviews=true`, `allow_force_pushes=false`, `restrictions.users=1` [jeranaias], `restrictions.teams=0` — auspex-clearance team exists on org but has no membership yet; non-fatal, populate per-engagement). Required signatures: `enabled=true`. Label sync: `completed-success`, 38 labels synced.
+- [ ] UI-only: disable Actions on PRs from forks per ECCN 4D004 posture. Open `https://github.com/thornveil-ai/auspex/settings/actions` → "Fork pull request workflows from outside collaborators" → "Require approval for all outside collaborators" → Save. Cannot be set via API.
 
 **Other pre-transfer state:**
 - **Customer-driven:** Federal pipeline
