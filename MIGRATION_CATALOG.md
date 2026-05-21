@@ -115,24 +115,33 @@ Canonical migration reference for the 10 systems consolidating onto `github.com/
 
 - **Tagline:** Distributed AI mesh. Substitute-on-failure inference across heterogeneous nodes.
 - **Visibility:** Public — marketing (proprietary, no source; SOCPAC deploying this month)
-- **Migration status:** Needs work (pull-first + WIP reconcile + binary filter + brand cleanup)
+- **Migration status:** Migrated (2026-05-20 — Step 5 heavy tier, system #1)
 - **IP:** Proprietary / trade secret. High-IP internals: `internal/mesh/expert.go`, `expert_proxy.go`, `coordinator.go` (expert routing); `internal/mesh/style.go` (cross-model normalization); `internal/mesh/poi.go` (verification layer).
 - **Customer-driven:** USSOCOM/SOCPAC (active deployment, ships this month)
-- **Org target:** `thornveil-ai/mycelium` (transfer from `jeranaias/mycelium`)
+- **Org target:** `thornveil-ai/mycelium` (transferred from `jeranaias/mycelium`)
+- **Default branch:** `main`
+- **v1.0.0 tag:** PRESERVED — points at `f9b96df` (signed)
 
 **Pre-publish blockers (12):**
-- [ ] **`git pull --ff-only` first** — local is 13 commits behind, including v1.0.0 release tag
-- [ ] Reconcile 5 uncommitted files against pulled `a8fe0ea` (3 are likely duplicate WIP)
-- [ ] Rewrite or delete stale `HANDOFF.md` (claims mesh is dead; it's wired in)
-- [ ] Update SECURITY-AUDIT.md banner after pull (3 Open findings likely closed)
-- [ ] Remove `node/python/bin/backup.sh` — hardcodes RigRun-specific paths
-- [ ] Scrub `scripts/mycelium-mesh-setup.sh:139`, `node/web/mesh_dashboard.py:24`, `deploy/README.md` SSH commands
-- [ ] Update `cmd/serve/main.go:7` comment ("RigRun" → "Mycelium")
-- [ ] Rebrand `internal/research/testdata_report.tex` from RigRun teal palette to Mycelium
-- [ ] `git filter-repo` to drop 4 committed `.exe` binaries in `node/go-server/`
-- [ ] Confirm new repo visibility is PRIVATE before transfer
-- [ ] Decide on R2I (Right to Integrate) public-facing README language (`d35b4f6` on remote)
-- [ ] Verify export-controls posture vs TAK/CoT integration files (`tak.go`, `tactical.go`)
+- [x] **`git pull --ff-only` first** — pulled 134 files / 5920 insertions, v1.0.0 tag now local
+- [x] Reconcile 5 uncommitted — local stash was REDUNDANT (pulled HEAD already had MESH_MODE/FALLBACK_CONFIG/_health_poll_loop from commit a8fe0ea). Stash dropped.
+- [x] Delete stale `HANDOFF.md` (commit 039fd29)
+- [x] SECURITY-AUDIT.md banner added — explains pre-v1.0.0 vintage + points at remediation commits (cd599fc mTLS, 7498cc2 HMAC audit log, 03e83f7 mDNS) — commit 858713d
+- [x] Remove `node/python/bin/backup.sh` (commit 039fd29)
+- [ ] **REFRAMED — DEFERRED:** Catalog originally said "scrub RigRun brand-bleed across 30+ files." Survey revealed RigRun isn't brand-bleed in Mycelium — `node/go-server/` IS the SHARED BACKEND that powers both Mycelium mesh nodes AND the RigRun chat app. `RIGRUN_*` env vars, `.rigrun/` paths, `/opt/rigrun/` config defaults, and `cmd/installer/*` are load-bearing infrastructure. Aggressive scrubbing would break deployments. cmd/serve/main.go:4 comment updated to acknowledge the shared-backend reality (commit 039fd29); deeper Mycelium/RigRun separation is a future architectural refactor, not migration prep.
+- [x] cmd/serve/main.go:4 comment now says "Mycelium / RigRun shared HTTP API server" (commit 039fd29)
+- [ ] `internal/research/testdata_report.tex` — file no longer present (was caught in dropped stash; never committed)
+- [x] **CATALOG AUDIT BUG:** No `.exe` binaries are actually tracked in git. The 5 .exe files on disk are dev-build artifacts, already covered by `*.exe` in `.gitignore`. No filter-repo needed.
+- [x] Pre-transfer visibility confirmed PRIVATE
+- [ ] R2I (Right to Integrate) README language (`d35b4f6`) — pulled in, left as-is. Brand-posture decision deferred.
+- [ ] Export-controls re-review for `tak.go`/`tactical.go` post-transfer — TODO when legal cadence requires.
+
+**Post-transfer state (commits a3e9213):**
+- [x] CODEOWNERS — admin review on expert.go/expert_proxy.go/coordinator.go/style.go/poi.go (the patent-claim implementations)
+- [x] Branch protection: tier2 rulesets — strict (id=16678728) + process (id=16678729)
+- [x] Label-sync caller workflow active — 38 labels propagated
+- [x] v1.0.0 + v1.0-standalone tags survived transfer
+- [ ] Pin on org profile, Dependabot/CodeQL UI toggles (TODO)
 
 ---
 
@@ -257,8 +266,23 @@ Canonical migration reference for the 10 systems consolidating onto `github.com/
 
 - **Tagline:** AI red team gated by Signet. Federal/IL5-fit autonomous offensive security.
 - **Visibility:** Public — federal-gated (default posture: hidden from public site entirely)
-- **Migration status:** Gated (filter-repo for committed secrets + OPSEC review before any external visibility)
+- **Migration status:** **DEFERRED — transfer blocked by org seat limit.** Local prep work and history cleanup COMPLETE on `jeranaias/auspex` (signed force-push 2026-05-20). Transfer to `thornveil-ai/auspex` returned `thornveil-ai has insufficient collaborator seats` (org is on Team plan with seats=1/1). User must either (a) upgrade org plan, or (b) run transfer interactively via UI which may show the specific seat-impact prompt.
 - **IP:** Proprietary. **Export-controlled: EAR ECCN 4D004 "intrusion software" with Wassenaar implications** per `EXPORT_CONTROLS.md`.
+
+**What's done (on `jeranaias/auspex`, ready for transfer):**
+- [x] `.gitignore` tightened: `demos/**/*.{hex,hmac.key}` + `demos/**/chain.jsonl` patterns
+- [x] **Two filter-repo passes** stripped 38 sensitive lab artifacts from history: 10 `eng-*.hex` HMAC keys (v0.4-goad + v0.4-ad eng dirs) + 18 `chain.jsonl` files (CTF flags + intentional weak passwords) + 10 more across `demos/v0.5-recon-coverage/*/chain/*` paths. 253 commits remain on `main` (was 462 — filter-repo collapsed 209 commits during rewrite); HEAD `c23dffa` is signed.
+- [x] Go module path swept: `github.com/jeranaias/auspex` → `github.com/thornveil-ai/auspex` across all .go files + go.mod
+- [x] README sister-project links updated: signet/mycelium/rigrun (incl. `jeranaias.github.io/signet` → `thornveil-ai.github.io/signet`)
+- [x] `.mailmap` consolidates 3 identities → `jesse@thornveil.ai`
+- [x] Force-pushed clean history to `jeranaias/auspex/main` (verified: eng-* dirs now have only README.md + audit-verify.txt, no .hex or chain.jsonl in remote)
+- [x] Local `47d9f06` commit (CODEOWNERS + label-sync caller) staged locally at `/c/Users/jesse/AppData/Local/Temp/auspex_audit` — push after transfer succeeds
+
+**What's blocking (UI-side):**
+- [ ] Resolve `thornveil-ai has insufficient collaborator seats` — likely needs Team plan seat upgrade OR transfer via web UI to see exact seat-impact prompt
+- [ ] After transfer succeeds: push staged CODEOWNERS commit (`47d9f06`), apply tier3-auspex.json branch protection + required_signatures, enable Vigilant Mode + disable Actions on PRs from forks per ECCN 4D004 posture
+
+**Other pre-transfer state:**
 - **Customer-driven:** Federal pipeline
 - **Org target:** `thornveil-ai/auspex` (transfer from `jeranaias/auspex`)
 - **Project access:** Admin-only. `auspex-clearance` team gets Read, populated per-engagement.
@@ -279,7 +303,7 @@ Canonical migration reference for the 10 systems consolidating onto `github.com/
 
 - **Tagline:** AI ops center for Thornveil. Internal infrastructure that runs the rest.
 - **Visibility:** Internal only (no public version planned)
-- **Migration status:** Needs work (init from scratch — never been in git)
+- **Migration status:** **DEFERRED — RigRun server unreachable during Step 5 execution.** Navigator lives at `/opt/rigrun/navigator/` on RigRun (exx@100.109.172.64); SSH connection timed out 2x during Step 5. Migration script `09-navigator.sh` is ready to execute from any session where RigRun is reachable. Same seat-limit issue as Auspex may also apply (need to verify post-RigRun-online).
 - **IP:** Proprietary, internal-only. Conceptual overlap with Pyros (Go production) on adaptive subsystems.
 - **Customer-driven:** Internal use only
 - **Org target:** `thornveil-ai/navigator` (init from scratch, mirror `/opt/rigrun/navigator/` wholesale)
