@@ -46,9 +46,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: EndBug/label-sync@v2
         with:
-          # Always pull canonical label set from the .github repo.
-          # When this job runs in a downstream caller, source-repo fetches the
-          # org's labels.yml; the action then applies them to the caller repo.
+          # Always pull canonical label set from the .github repo's
+          # .github/labels.yml (source-repo fetches that path by default).
+          # config-file and source-repo are mutually exclusive — picking
+          # source-repo so this works correctly both from self-sync (where
+          # source-repo equals the runner's repo) and from reusable callers.
           source-repo: thornveil-ai/.github
-          config-file: .github/labels.yml
           delete-other-labels: false
