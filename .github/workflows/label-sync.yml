@@ -22,6 +22,7 @@
 #     sync:
 #       uses: thornveil-ai/.github/.github/workflows/label-sync.yml@main
 #       permissions:
+#         contents: read
 #         issues: write
 
 name: Label sync
@@ -39,6 +40,7 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     permissions:
+      contents: read   # required for actions/checkout on private repos
       issues: write
     steps:
       - uses: actions/checkout@v4
