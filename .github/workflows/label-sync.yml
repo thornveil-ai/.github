@@ -55,4 +55,4 @@ jobs:
           token: ${{ secrets.ORG_LABEL_SYNC_PAT }}
           config-file: .github/labels.yml
           delete-other-labels: false
-          source-repo: thornveil-ai/${{ matrix.repo }}
+        
