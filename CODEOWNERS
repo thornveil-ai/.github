@@ -1,0 +1,6 @@
+# Thornveil org-wide default CODEOWNERS.
+# Applies as fallback for any repo that doesn't have its own CODEOWNERS file.
+# Each system gets its own CODEOWNERS at migration time — see /codeowners/ in
+# the buildout dir for the per-system templates.
+
+* @jeranaias

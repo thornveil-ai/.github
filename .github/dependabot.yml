@@ -1,0 +1,79 @@
+# Thornveil org default Dependabot config.
+# Each repo overrides by adding its own .github/dependabot.yml.
+#
+# Mycelium override note (handled in mycelium's own dependabot.yml):
+#   Alerts on; security updates DISABLED for paths under internal/mesh/.
+#   Trade-secret-grade code regresses in ways tests don't always catch.
+#   Every dep bump on those paths gets human eyes before merge.
+
+version: 2
+updates:
+  # Go modules
+  - package-ecosystem: "gomod"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    labels:
+      - "type: chore"
+      - "area: deps"
+
+  # Python (Poetry/PEP 621/setup.py)
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    labels:
+      - "type: chore"
+      - "area: deps"
+
+  # npm/yarn
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    labels:
+      - "type: chore"
+      - "area: deps"
+
+  # Cargo (Rust)
+  - package-ecosystem: "cargo"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    labels:
+      - "type: chore"
+      - "area: deps"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    labels:
+      - "type: chore"
+      - "area: ci"

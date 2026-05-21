@@ -1,0 +1,53 @@
+name: Bug report
+description: Something is broken or behaves unexpectedly
+title: "[bug] "
+labels: ["type: bug", "status: triage"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: One paragraph. What did you do, what did you see, what did you expect.
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version / commit
+      description: Output of `--version`, `git rev-parse --short HEAD`, or PyPI/release tag.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction steps
+      placeholder: |
+        1.
+        2.
+        3.
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - "critical — data loss, security breach, production down"
+        - "high — blocks customer work"
+        - "medium — workaround exists"
+        - "low — cosmetic or rare"
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs / stack traces
+      render: shell
+
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: OS, hardware, deployment context (cloud / on-prem / edge).

@@ -1,0 +1,74 @@
+# Reusable workflow: generate CycloneDX SBOM and attach to release.
+#
+# Example caller:
+#
+#   jobs:
+#     sbom:
+#       uses: thornveil-ai/.github/.github/workflows/sbom.yml@main
+#       with:
+#         language: go  # one of: go, python, npm
+#         target-dir: '.'
+#       permissions:
+#         contents: write
+
+name: SBOM generation (reusable)
+
+on:
+  workflow_call:
+    inputs:
+      language:
+        description: 'Language ecosystem: go, python, npm'
+        required: true
+        type: string
+      target-dir:
+        description: 'Directory to scan (relative to repo root)'
+        required: false
+        type: string
+        default: '.'
+      output-name:
+        description: 'SBOM filename (without extension)'
+        required: false
+        type: string
+        default: 'sbom'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate SBOM (Go)
+        if: inputs.language == 'go'
+        run: |
+          go install github.com/CycloneDX/cyclonedx-gomod/cmd/cyclonedx-gomod@latest
+          cd "${{ inputs.target-dir }}"
+          cyclonedx-gomod mod -licenses -json -output "${{ inputs.output-name }}.cdx.json"
+
+      - name: Generate SBOM (Python)
+        if: inputs.language == 'python'
+        run: |
+          pip install cyclonedx-bom
+          cd "${{ inputs.target-dir }}"
+          cyclonedx-py environment --output-format json --outfile "${{ inputs.output-name }}.cdx.json"
+
+      - name: Generate SBOM (npm)
+        if: inputs.language == 'npm'
+        run: |
+          npm install -g @cyclonedx/cyclonedx-npm
+          cd "${{ inputs.target-dir }}"
+          cyclonedx-npm --output-file "${{ inputs.output-name }}.cdx.json"
+
+      - name: Upload SBOM as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.output-name }}-cyclonedx
+          path: ${{ inputs.target-dir }}/${{ inputs.output-name }}.cdx.json
+
+      - name: Attach SBOM to release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ inputs.target-dir }}/${{ inputs.output-name }}.cdx.json

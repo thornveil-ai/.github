@@ -1,0 +1,90 @@
+# Reusable workflow: cosign-sign release artifacts via keyless OIDC.
+#
+# Callers must have:
+#   permissions:
+#     id-token: write   # required for keyless OIDC
+#     contents: write   # required to upload signatures as release assets
+#
+# Example caller (in a repo's release workflow):
+#
+#   jobs:
+#     sign:
+#       uses: thornveil-ai/.github/.github/workflows/cosign-release.yml@main
+#       with:
+#         artifact-glob: 'dist/*'
+#       permissions:
+#         id-token: write
+#         contents: write
+
+name: Cosign release sign (reusable)
+
+on:
+  workflow_call:
+    inputs:
+      artifact-glob:
+        description: 'Glob of artifacts to sign (relative to repo root)'
+        required: true
+        type: string
+      cosign-version:
+        description: 'cosign version to install'
+        required: false
+        type: string
+        default: 'v2.4.1'
+
+jobs:
+  sign:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3
+        with:
+          cosign-release: ${{ inputs.cosign-version }}
+
+      - name: Sign artifacts
+        env:
+          COSIGN_EXPERIMENTAL: "1"
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          artifacts=(${{ inputs.artifact-glob }})
+          if [ ${#artifacts[@]} -eq 0 ]; then
+            echo "No artifacts matched glob: ${{ inputs.artifact-glob }}"
+            exit 1
+          fi
+          for f in "${artifacts[@]}"; do
+            echo "Signing $f"
+            cosign sign-blob --yes "$f" \
+              --output-signature "$f.sig" \
+              --output-certificate "$f.crt"
+          done
+          ls -la *.sig *.crt 2>/dev/null || true
+
+      - name: Verify signatures
+        env:
+          COSIGN_EXPERIMENTAL: "1"
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          artifacts=(${{ inputs.artifact-glob }})
+          for f in "${artifacts[@]}"; do
+            echo "Verifying $f"
+            cosign verify-blob "$f" \
+              --signature "$f.sig" \
+              --certificate "$f.crt" \
+              --certificate-identity-regexp '.*' \
+              --certificate-oidc-issuer https://token.actions.githubusercontent.com
+          done
+
+      - name: Attach signatures to release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ${{ inputs.artifact-glob }}.sig
+            ${{ inputs.artifact-glob }}.crt

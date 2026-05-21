@@ -1,0 +1,52 @@
+name: Security finding
+description: Vulnerability, misconfiguration, or hardening gap
+title: "[security] "
+labels: ["type: security", "status: triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Before filing publicly
+
+        **If this finding is exploitable and the affected repo is public**, do NOT file here. Email `security@thornveil.ai` first. Public issues for unpatched exploitable vulnerabilities will be deleted on sight and the reporter will be redirected to private disclosure.
+
+        For private repos with org-only visibility, filing here is fine — the issue is not externally visible.
+
+  - type: textarea
+    id: finding
+    attributes:
+      label: The finding
+      description: What's wrong, where, and what an attacker could do.
+    validations:
+      required: true
+
+  - type: input
+    id: affected-systems
+    attributes:
+      label: Affected systems / repos
+      placeholder: "e.g. mycelium, rigrun"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - "critical — remote code exec, auth bypass, mass data exfil"
+        - "high — privilege escalation, sensitive data leak"
+        - "medium — DoS, info disclosure with mitigations"
+        - "low — hardening gap, defense-in-depth"
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction
+      description: How to demonstrate the finding.
+
+  - type: textarea
+    id: suggested-fix
+    attributes:
+      label: Suggested mitigation

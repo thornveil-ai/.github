@@ -1,0 +1,153 @@
+# Thornveil org-wide label manifest.
+# Synced to every repo by .github/workflows/label-sync.yml on push to main.
+# Color hex codes are without the leading #.
+#
+# Categories:
+#   type:*       — kind of work (bug, feat, docs, etc.)
+#   area:*       — subsystem scope (extend per-repo as needed)
+#   customer:*   — customer-driven flag
+#   status:*     — workflow state
+#   sev:*        — severity (security/bug only)
+#   meta         — process meta-labels (breaking, migration-blocker, etc.)
+
+# ============================================================
+# type:*
+# ============================================================
+- name: "type: bug"
+  color: "d73a4a"
+  description: "Something is broken or behaves unexpectedly"
+
+- name: "type: feat"
+  color: "0e8a16"
+  description: "New functionality"
+
+- name: "type: docs"
+  color: "0075ca"
+  description: "Documentation only"
+
+- name: "type: chore"
+  color: "fef2c0"
+  description: "Maintenance, deps, tooling"
+
+- name: "type: refactor"
+  color: "c2e0c6"
+  description: "Code restructure with no behavior change"
+
+- name: "type: test"
+  color: "bfd4f2"
+  description: "Tests added or updated"
+
+- name: "type: security"
+  color: "b60205"
+  description: "Security-relevant work"
+
+# ============================================================
+# area:* — starter set; each repo extends with its own subsystems
+# ============================================================
+- name: "area: ci"
+  color: "1d76db"
+  description: "GitHub Actions, build pipelines"
+
+- name: "area: docs"
+  color: "1d76db"
+  description: "README, docs site, contributing guides"
+
+- name: "area: deploy"
+  color: "1d76db"
+  description: "Deployment configs, systemd units, containers"
+
+- name: "area: security"
+  color: "1d76db"
+  description: "Auth, crypto, audit, classification"
+
+# ============================================================
+# customer:*
+# ============================================================
+- name: "customer: socpac"
+  color: "fbca04"
+  description: "USSOCOM/SOCPAC-driven work"
+
+- name: "customer: vanguard"
+  color: "fbca04"
+  description: "Vanguard (Australian USV partner) work"
+
+- name: "customer: federal-pipeline"
+  color: "fbca04"
+  description: "Federal sales pipeline-driven work"
+
+- name: "customer: internal"
+  color: "fbca04"
+  description: "Internal Thornveil use only"
+
+# ============================================================
+# status:*
+# ============================================================
+- name: "status: triage"
+  color: "ededed"
+  description: "Awaiting initial review"
+
+- name: "status: blocked"
+  color: "e99695"
+  description: "Blocked on external dependency"
+
+- name: "status: in-review"
+  color: "fbca04"
+  description: "PR open, under review"
+
+- name: "status: needs-info"
+  color: "d4c5f9"
+  description: "Waiting on reporter clarification"
+
+- name: "status: ready-to-merge"
+  color: "0e8a16"
+  description: "Approved, awaiting merge"
+
+# ============================================================
+# sev:*
+# ============================================================
+- name: "sev: critical"
+  color: "b60205"
+  description: "Data loss, security breach, or production down"
+
+- name: "sev: high"
+  color: "d93f0b"
+  description: "Blocks customer work"
+
+- name: "sev: medium"
+  color: "fbca04"
+  description: "Workaround exists"
+
+- name: "sev: low"
+  color: "c2e0c6"
+  description: "Cosmetic or rare"
+
+# ============================================================
+# meta
+# ============================================================
+- name: "good first issue"
+  color: "7057ff"
+  description: "Good for newcomers (public repos only)"
+
+- name: "help wanted"
+  color: "008672"
+  description: "Extra attention needed (public repos only)"
+
+- name: "breaking"
+  color: "b60205"
+  description: "Breaking change — requires migration"
+
+- name: "migration-blocker"
+  color: "5319e7"
+  description: "Pre-publish blocker from MIGRATION_CATALOG.md"
+
+- name: "do-not-merge"
+  color: "b60205"
+  description: "Hold — do not merge yet"
+
+- name: "trade-secret-touched"
+  color: "5319e7"
+  description: "Touches high-IP subsystem; admin review required"
+
+- name: "export-controlled"
+  color: "5319e7"
+  description: "Touches EAR/ITAR-controlled code (Auspex)"

@@ -1,0 +1,26 @@
+name: Docs issue
+description: Documentation is wrong, missing, or unclear
+title: "[docs] "
+labels: ["type: docs", "status: triage"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page or file
+      description: URL, file path, or section header.
+    validations:
+      required: true
+
+  - type: textarea
+    id: whats-wrong
+    attributes:
+      label: What's wrong
+      description: Inaccurate? Missing? Confusing? Outdated?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-fix
+    attributes:
+      label: Proposed fix
+      description: How would you rewrite it? Draft text welcome.

@@ -19,19 +19,35 @@
 
 <!-- Describe the tests you ran. Include hardware, OS, and any non-default configuration. -->
 
-## Checklist
+- [ ] Tests added or updated
+- [ ] Manual verification (describe above)
+- [ ] Behavioral parity verified (if refactoring)
 
-- [ ] I read [CONTRIBUTING.md](https://github.com/thornveil-ai/.github/blob/main/CONTRIBUTING.md)
-- [ ] My code follows the project's style (gofmt, go vet, staticcheck clean)
-- [ ] I have added tests that prove my fix is effective or my feature works
-- [ ] New and existing tests pass locally (\`go test ./...\`)
-- [ ] I have updated documentation as needed
-- [ ] Commits are signed off (\`git commit -s\`) per the DCO
-- [ ] This PR introduces no new runtime dependencies (or the dependency is justified below)
+## Trade-Secret Review
+
+<!-- Private repos only. Skip on public OSS (Signet, Alchemist, meridian-core). -->
+
+- [ ] This PR does NOT touch a high-IP subsystem listed in MIGRATION_CATALOG.md for this system
+- [ ] OR — this PR touches a high-IP subsystem AND has been reviewed by an admin (`@jeranaias` or designated)
 
 ## Security Considerations
 
 <!-- If this PR touches authentication, cryptography, input parsing, network handling, or anything else security-sensitive, describe what you considered. If none, write "N/A". -->
+
+## Engineering Principles
+
+- [ ] No new C or CGO code (or if added, memory-safety justification provided above)
+- [ ] If this is a release, cosign-signing workflow was run (`.github/workflows/release.yml`)
+- [ ] No hardcoded customer IPs, paths, or names introduced
+
+## Checklist
+
+- [ ] I read [CONTRIBUTING.md](https://github.com/thornveil-ai/.github/blob/main/CONTRIBUTING.md)
+- [ ] My code follows the project's style (gofmt, go vet, staticcheck clean for Go; ruff + mypy strict for Python)
+- [ ] New and existing tests pass locally
+- [ ] Documentation / CHANGELOG updated as needed
+- [ ] Commits are signed off (`git commit -s`) per the DCO
+- [ ] This PR introduces no new runtime dependencies (or the dependency is justified above)
 
 ## Notes for Reviewers
 

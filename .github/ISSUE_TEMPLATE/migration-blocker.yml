@@ -1,0 +1,44 @@
+name: Migration blocker
+description: Pre-publish blocker from MIGRATION_CATALOG.md
+title: "[migration] "
+labels: ["migration-blocker", "status: triage"]
+body:
+  - type: input
+    id: catalog-ref
+    attributes:
+      label: Catalog reference
+      description: System name + the blocker text from MIGRATION_CATALOG.md
+      placeholder: 'e.g. "Mycelium — git pull --ff-only first (13 commits behind)"'
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-to-do
+    attributes:
+      label: What needs to happen
+      description: Concrete steps. Paste from catalog if helpful.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: blocks-transfer
+    attributes:
+      label: Does this block the actual transfer, or is it post-transfer cleanup?
+      options:
+        - "blocks transfer — must close before gh api transfer"
+        - "post-transfer cleanup — can close after move lands"
+    validations:
+      required: true
+
+  - type: textarea
+    id: verification
+    attributes:
+      label: How will we verify it's done?
+      description: Command, file diff, dashboard check, etc.
+
+  - type: input
+    id: catalog-checkbox
+    attributes:
+      label: MIGRATION_CATALOG.md checkbox to tick when closed
+      description: The exact line text from the catalog so it's easy to find and check off.
+      placeholder: 'e.g. "- [ ] git pull --ff-only first — local is 13 commits behind"'
