@@ -266,7 +266,7 @@ Canonical migration reference for the 10 systems consolidating onto `github.com/
 
 - **Tagline:** AI red team gated by Signet. Federal/IL5-fit autonomous offensive security.
 - **Visibility:** Public — federal-gated (default posture: hidden from public site entirely)
-- **Migration status:** **DEFERRED — transfer blocked by org seat limit.** Local prep work and history cleanup COMPLETE on `jeranaias/auspex` (signed force-push 2026-05-20). Transfer to `thornveil-ai/auspex` returned `thornveil-ai has insufficient collaborator seats` (org is on Team plan with seats=1/1). User must either (a) upgrade org plan, or (b) run transfer interactively via UI which may show the specific seat-impact prompt.
+- **Migration status:** **DEFERRED by design — org seat-limit issue acknowledged, not blocking.** Local prep work and history cleanup COMPLETE on `jeranaias/auspex` (signed force-push 2026-05-20). Transfer to `thornveil-ai/auspex` returns `thornveil-ai has insufficient collaborator seats` (Team plan seats=1/1). Per user 2026-05-21: "don't worry about seats" — Auspex stays at `jeranaias/auspex` for now with all prep work preserved in case future seat increase or alternate transfer path becomes preferred. Discovery during Navigator migration: **the seat limit only affects TRANSFERS, not new repo CREATE** (`gh api orgs/thornveil-ai/repos` succeeded for Navigator). Auspex could also be re-created fresh on the org if transfer never unblocks, but that loses the 253-commit history.
 - **IP:** Proprietary. **Export-controlled: EAR ECCN 4D004 "intrusion software" with Wassenaar implications** per `EXPORT_CONTROLS.md`.
 
 **What's done (on `jeranaias/auspex`, ready for transfer):**
@@ -303,20 +303,32 @@ Canonical migration reference for the 10 systems consolidating onto `github.com/
 
 - **Tagline:** AI ops center for Thornveil. Internal infrastructure that runs the rest.
 - **Visibility:** Internal only (no public version planned)
-- **Migration status:** **DEFERRED — RigRun server unreachable during Step 5 execution.** Navigator lives at `/opt/rigrun/navigator/` on RigRun (exx@100.109.172.64); SSH connection timed out 2x during Step 5. Migration script `09-navigator.sh` is ready to execute from any session where RigRun is reachable. Same seat-limit issue as Auspex may also apply (need to verify post-RigRun-online).
+- **Migration status:** Migrated (2026-05-21 — Step 5 heavy tier, system #2)
 - **IP:** Proprietary, internal-only. Conceptual overlap with Pyros (Go production) on adaptive subsystems.
 - **Customer-driven:** Internal use only
-- **Org target:** `thornveil-ai/navigator` (init from scratch, mirror `/opt/rigrun/navigator/` wholesale)
+- **Org target:** `thornveil-ai/navigator` (init-from-scratch on RigRun via SSH, then created + pushed)
+- **Default branch:** `main`
+- **Initial commit footprint:** 161 files
 
 **Pre-publish blockers (8):**
-- [ ] `git init` in `/opt/rigrun/navigator/` (no history to preserve)
-- [ ] Delete `.bak`/`.v3.bak`/`.v4.bak` files in `core/`
-- [ ] Delete bizarre Windows-path dirs at repo root: `C:\Users\jesse`, `C:\Users\jesse\Documents\Thornveil\Provisionals`, `D:\projects`
-- [ ] Delete `app.py.bak-20260328-1458`, `app.py.bak-maverick`
-- [ ] Add `.gitignore`: `navigator.db` (467 MB SQLite), `__pycache__/`, `.pytest_cache/`, `.coverage`, `*.bak*`
-- [ ] Decide 9 agent JSONs (`~/.rigrun/agents/*.json`) → pull into `navigator/agents/` as repo content or document as external config
-- [ ] Add `LICENSE` (Proprietary, Thornveil LLC)
-- [ ] Document Pyros (Go) vs Navigator (Python) deduplication intent in README
+- [x] `git init -b main` in `/opt/rigrun/navigator/` (no history to preserve)
+- [x] Deleted 6 `.bak`/`.v3.bak`/`.v4.bak` files in `core/` (agent_runtime, cascade, daemon, executor)
+- [x] Deleted bizarre Windows-path dirs at repo root: `C:\Users\jesse`, `C:\Users\jesse\Documents\Thornveil\Provisionals`, `D:\projects` (including `dronebane/hunter_modules` nested subdir caught in path)
+- [x] Deleted `app.py.bak-20260328-1458` + `app.py.bak-maverick` + `.coverage`
+- [x] `.gitignore` already covered `*.db` (catches 447 MB navigator.db) + `__pycache__/` + `.pytest_cache/` + `*.bak` — kept as-is
+- [x] 9 agent JSONs copied from `~/.rigrun/agents/*.json` → `agents/` as repo content (self-contained repo)
+- [x] **LICENSE rewritten** — was Apache-2.0 with patent notice (THRN-2026-018 through 023); user directive said patents off the repo surface + Navigator is internal-only. Replaced with proprietary "All rights reserved" Thornveil LLC license.
+- [x] README documents Pyros (Go production) vs Navigator (Python research) dedup intent
+
+**Post-transfer state (initial commit + commit 1358a4c):**
+- [x] Repo created via `gh api -X POST orgs/thornveil-ai/repos` (seat issue does NOT affect new repo creation, only transfers)
+- [x] Pushed from RigRun via `gh auth setup-git` configured locally there (RigRun has gh CLI auth as jeranaias)
+- [x] CODEOWNERS landed — admin review on agent_factory.py, agent_runtime.py, top-IP subsystems
+- [x] Branch protection: tier2 rulesets — strict (id=16715886) + process (id=16715890)
+- [x] Label-sync caller workflow active — 38 labels propagated, verified
+
+**Open follow-ups:**
+- [ ] Future Pyros vs Navigator subsystem dedup refactor (architectural decision, not migration prep)
 
 ---
 
