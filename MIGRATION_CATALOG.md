@@ -12,7 +12,7 @@ Canonical migration reference for the 10 systems consolidating onto `github.com/
 
 ## Polish status (Step 6 — 2026-05-21)
 
-All 9 migrated systems have passed the REPO_STANDARDS.md audit:
+**10 of 10 systems migrated to thornveil-ai org. 9 of 10 polished to REPO_STANDARDS.md spec.** Auspex polish is a queued follow-up (Tier-3 minimal posture; PR-only main blocks immediate edits while other work is in-flight).
 
 | System | README structure | Settings | Patent scrub |
 |---|---|---|---|
@@ -25,13 +25,23 @@ All 9 migrated systems have passed the REPO_STANDARDS.md audit:
 | navigator | ✓ all green | desc / topics / wiki off / homepage set | `patent_drafter` agent name preserved (legitimate tool name, not patent marker) |
 | rigrun | ✓ all green | desc / topics / wiki off | scrubbed (badge, nav, body, 64/004,056 + 3 other app numbers, "⚡ Patent Pending" markers, ## Patents section, footer) |
 | hawkstack | ✓ all green | desc / topics / wiki off / homepage set | scrubbed (THRN-2026-024, THRN-2026-026 in License) |
+| **auspex** | Partial — informal callout present, missing standard `## License` section + footer (queued PR) | wiki off / topics seeded (6) / desc 91 chars | clean (no patent refs in README) |
 
-All green means: status callout, badge row, Quick Start, Architecture (with Mermaid diagram), License section, "A Thornveil system" footer.
+For the 9 polished systems, "all green" means: status callout, badge row, Quick Start, Architecture (with Mermaid diagram), License section, "A Thornveil system" footer.
+
+**Auspex polish follow-up (Tier 3 — minimal posture):** Per REPO_STANDARDS.md Section 5/Tier 3, Auspex doesn't need architecture diagrams or full standard treatment. Required minimum additions:
+- Standard-format status callout: `> **Private. Export-controlled (EAR ECCN 4D004). v0.6.0-rc1 — federal pipeline.**`
+- `## License` section referencing LICENSE + EXPORT_CONTROLS.md + auspex-clearance team gate
+- "A Thornveil system" footer
+
+Holding the PR until `thornveil-ai/auspex#1` (URL straggler sweep) lands and no other Claude is mid-flight in the repo.
 
 **UI follow-ups (cannot be done via API):**
 - Pin top 6 repos on org profile: `signet, mycelium, rigrun, pyros, hawkstack, alchemist` — https://github.com/organizations/thornveil-ai/settings/profile
 - Enable `cosign-release.yml` + `sbom.yml` as org-required workflows once 5+ repos have CI workflows wired — https://github.com/organizations/thornveil-ai/settings/actions
 - Per-repo Settings → Code security → Dependabot + CodeQL audit (may already be on by inheritance; UI verifies)
+- **Auspex Settings → Actions** → "Fork pull request workflows from outside collaborators" → "Require approval for all outside collaborators" (ECCN 4D004 OPSEC) — https://github.com/thornveil-ai/auspex/settings/actions
+- **Auspex auspex-clearance team membership** — currently 0 members; populate per-engagement as federal customers need read access
 
 ---
 
