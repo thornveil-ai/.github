@@ -45,6 +45,29 @@ Holding the PR until `thornveil-ai/auspex#1` (URL straggler sweep) lands and no 
 
 ---
 
+## Public surface map (Step 6 — 2026-05-21)
+
+Org page transformed from 3 public repos to 9 public repos. Every private flagship system has a corresponding public companion that holds marketing-grade docs, architecture diagrams, get-access CTAs, and (where applicable) API specs — but no implementation source.
+
+| Private system | Public companion | Companion content |
+|---|---|---|
+| `signet` | (no companion needed — signet is itself public OSS) | — |
+| `alchemist` | (no companion needed — alchemist is itself public OSS) | — |
+| `pyros` | `pyros-overview` | 7-pillar conceptual model + benchmark page (6.5 MB binary / 0.31 ms overhead / zero deps) + supported backends + RigRun + Mycelium cross-references |
+| `mycelium` | `mycelium-overview` | 8-layer Mermaid diagram + R2I alignment + NIST 800-53 control families + threat model summary + OpenAPI spec placeholder + hardware tiers |
+| `rigrun` | `rigrun-overview` | 3-apps-one-backend diagram + classification-gated routing diagram + vs-cloud comparison table + compliance posture (44 NIST controls, IL5, 6,900+ tests) |
+| `hawkstack` | `hawkstack-paper` | Research-credibility framing + 6-domain results table + paper outline (preprint preparing arXiv) + benchmark methodology + citation block |
+| `canopy` | `canopy-preview` | Phase 0 honest framing + 8-layer architecture + per-layer implementation status + hardware tier costs + 4-phase roadmap |
+| `meridian` | `meridian-core` | OSS predecessor (transferred from `jeranaias/meridian-core`) — full 78,000-line Rust autopilot codebase as community reference; productized Thornveil version remains private |
+| `navigator` | (no companion — internal only) | — |
+| `auspex` | (no companion — Tier 3 federal-gated, no public artifacts) | — |
+
+All 7 public companions pass `REPO_STANDARDS.md` audit: status callout, badge row, README structure, Mermaid diagrams where applicable, License section, "A Thornveil system" footer. Each has CODEOWNERS, label-sync caller workflow, tier1 classic branch protection (signed commits required), and 38 labels synced.
+
+**Org-pinning rotation (UI):** with the public surface now substantial, recommended pinned-6 set is `signet, mycelium-overview, rigrun-overview, pyros-overview, hawkstack-paper, alchemist` — surfaces the public face first to visitors.
+
+---
+
 ## Visibility tiers
 
 | Tier | Meaning |
