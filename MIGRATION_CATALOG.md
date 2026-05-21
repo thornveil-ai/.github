@@ -34,19 +34,27 @@ Canonical migration reference for the 10 systems consolidating onto `github.com/
 
 - **Tagline:** Capability-based safety gates for LLM agents. The model proposes; signet authorizes.
 - **Visibility:** Public — source (Apache-2.0)
-- **Migration status:** Ready
+- **Migration status:** Migrated (2026-05-20 — Step 3 cascade, system #1)
 - **IP:** Open source (Apache-2.0). NOTICE carves out Pyros and Mycelium as separate Thornveil works.
 - **Customer-driven:** None (open-source community + commercial pilot inbound)
-- **Org target:** `thornveil-ai/signet` (transfer from `jeranaias/signet`)
+- **Org target:** `thornveil-ai/signet` (transferred from `jeranaias/signet`)
 - **PyPI:** `signet-sign` v0.1.10.1
-- **Docs:** `jeranaias.github.io/signet` → moves to `thornveil-ai.github.io/signet`
+- **Docs site:** `thornveil-ai.github.io/signet` (Pages config + redeploy required from this org)
 
 **Pre-publish blockers (5):**
-- [ ] Update ~20 `jeranaias` URL refs across `pyproject.toml`, `mkdocs.yml`, `.github/FUNDING.yml`, `CODEOWNERS`, examples, CHANGELOG compare-URLs
-- [ ] Re-issue PyPI Trusted Publisher binding for new owner/repo before next `v*` tag
-- [ ] Update `pyproject.toml:14` author email to `jesse@thornveil.ai`
-- [ ] Refresh or delete stale `SIGNET-CLAUDE-HANDOFF.txt`
-- [ ] Decide `growth/` folder fate (keep in org repo or move to private launch-materials repo)
+- [x] Update ~20 `jeranaias` URL refs across `pyproject.toml`, `mkdocs.yml`, `.github/FUNDING.yml`, `CODEOWNERS`, examples, CHANGELOG compare-URLs (commit fa796f2, 18 files)
+- [ ] **OPEN — REQUIRED BEFORE NEXT v* TAG:** Re-issue PyPI Trusted Publisher binding for `thornveil-ai/signet` at https://pypi.org/manage/account/publishing/ — without this, OIDC exchange fails at the next release
+- [x] Update `pyproject.toml:14` author email to `jesse@thornveil.ai` (commit fa796f2)
+- [x] Delete stale `SIGNET-CLAUDE-HANDOFF.txt` (commit fa796f2)
+- [ ] `growth/` folder — kept in repo for now; revisit after Show HN run
+
+**Post-transfer state (commit 5e77fe5):**
+- [x] CODEOWNERS (`thornveil-ai/engineering` default, `@thornveil-ai/security` for core/audit/checks, `@jeranaias` admin for publish.yml and PyPI-binding-sensitive paths)
+- [x] Branch protection: tier1-public-oss (classic) — PR + 1 review + CODEOWNERS + linear history, no required_signatures (public OSS doesn't require contributor signing)
+- [x] Label-sync caller workflow active (`.github/workflows/label-sync.yml`), verified — 38 labels propagated
+- [ ] Repo pinned on org profile (TODO when pin slot prioritized)
+- [ ] Dependabot + secret scanning + CodeQL enabled in repo Settings (TODO via UI)
+- [ ] System's GitHub Project default-repo updated from `meridian` to `signet` (TODO via UI)
 
 ---
 
