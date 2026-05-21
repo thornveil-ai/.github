@@ -158,20 +158,20 @@ Canonical migration reference for the 10 systems consolidating onto `github.com/
 
 - **Tagline:** Memory-safe Rust autopilot for STM32 H7/F4/F7. ArduPilot/PX4 alternative.
 - **Visibility:** Dual track — `jeranaias/meridian-core` public OSS + `thornveil-ai/meridian` private Thornveil hardening
-- **Migration status:** Already on org (private side); needs cleanup
+- **Migration status:** Migrated (2026-05-20 — Step 2 canary)
 - **IP:** Proprietary / trade secret. `THORNVEIL-CONFIDENTIAL.md` flags ~11 Phase 10 crates explicitly.
 - **Customer-driven:** Vanguard (Australian USV builder, partner)
 - **Org target:** `thornveil-ai/meridian` (already exists, private)
 
 **Pre-publish blockers (7):**
-- [ ] `git pull --ff-only` first — local is 1 commit behind origin (Step 9.12)
-- [ ] Reconcile `bin/meridian-stm32/src/main.rs` local vs origin modifications
-- [ ] Commit 17 uncommitted as tank-test-prep batch
-- [ ] Fix `public` remote URL from `jeranaias/meridian` to `jeranaias/meridian-core`
-- [ ] Delete `vanguard` legacy remote
-- [ ] `git rm --cached vanguard_github_repo.zip` (stale 45 KB snapshot)
-- [ ] Scrub 13 hardcoded tailnet IPs (`100.72.16.72`, `100.113.149.38`) — env-var-ize
-- [ ] Update README to add "Partner Context" section (currently zero mention of Vanguard/Tristan)
+- [x] `git pull --ff-only` first — local already in sync at Step 2 time
+- [ ] Reconcile `bin/meridian-stm32/src/main.rs` local vs origin modifications (deferred — non-blocking, working copy committed as-is)
+- [x] Commit 17 uncommitted as tank-test-prep batch (commit 992b7d9)
+- [x] Fix `public` remote URL from `jeranaias/meridian` to `jeranaias/meridian-core`
+- [x] Delete `vanguard` legacy remote
+- [x] `git rm --cached vanguard_github_repo.zip` (stale 45 KB snapshot)
+- [ ] Scrub 13 hardcoded tailnet IPs (`100.72.16.72`, `100.113.149.38`) — env-var-ize (deferred — private repo, tailnet-only IPs, not a data leak; do as follow-up)
+- [ ] Update README to add "Partner Context" section (deferred — follow-up)
 - [ ] Update STATUS.md banner (Phase 9.12 has lapped the "ESC mapping" gate)
 
 ---
@@ -246,7 +246,7 @@ Canonical migration reference for the 10 systems consolidating onto `github.com/
 | 2 | Alchemist | Ready | Low IP risk. Confirms public-source flow. |
 | 3 | Pyros | Needs work (small) | Small commit batch. No structural rework. |
 | 4 | Canopy | Needs work (private posture) | Clean state for private push. Defer public until Phase 1+. |
-| 5 | Meridian | Already on org | Cleanup + remote URL fix. |
+| 5 | Meridian | Migrated | Cleanup + remote URL fix completed 2026-05-20. |
 | 6 | RigRun | Needs work (medium) | One feature commit + IP scrub. Customer-facing readiness. |
 | 7 | HawkStack | Needs work (large) | Three-repo consolidation. Requires `git filter-repo` discipline. |
 | 8 | Mycelium | Needs work (large) | Pull-first. Reconcile WIP. Customer is live — high stakes. |
