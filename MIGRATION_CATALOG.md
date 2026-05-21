@@ -6,6 +6,33 @@ Canonical migration reference for the 10 systems consolidating onto `github.com/
 
 **Update rule:** when a blocker closes or a system's posture changes, edit this file in place. Do not duplicate metadata into Project fields until you have >20 issues to filter on.
 
+**Quality bar:** Every repo on the org meets [REPO_STANDARDS.md](REPO_STANDARDS.md). When something here conflicts with that document, that document wins.
+
+---
+
+## Polish status (Step 6 — 2026-05-21)
+
+All 9 migrated systems have passed the REPO_STANDARDS.md audit:
+
+| System | README structure | Settings | Patent scrub |
+|---|---|---|---|
+| signet | ✓ all green | desc / topics / wiki off | n/a (Apache-2.0) |
+| alchemist | ✓ all green | desc / topics / wiki off / homepage set | n/a (Apache-2.0) |
+| pyros | ✓ all green | desc / topics / wiki off / homepage set + CHANGELOG back-filled v0.2.0+v0.2.1 | clean |
+| canopy | ✓ all green | desc / topics / wiki off / homepage set + CHANGELOG created | clean |
+| meridian | ✓ all green | desc / topics / wiki off | clean |
+| mycelium | ✓ all green | desc / topics / wiki off / homepage set | scrubbed (3 refs in README, kept NOTICE pointer) |
+| navigator | ✓ all green | desc / topics / wiki off / homepage set | `patent_drafter` agent name preserved (legitimate tool name, not patent marker) |
+| rigrun | ✓ all green | desc / topics / wiki off | scrubbed (badge, nav, body, 64/004,056 + 3 other app numbers, "⚡ Patent Pending" markers, ## Patents section, footer) |
+| hawkstack | ✓ all green | desc / topics / wiki off / homepage set | scrubbed (THRN-2026-024, THRN-2026-026 in License) |
+
+All green means: status callout, badge row, Quick Start, Architecture (with Mermaid diagram), License section, "A Thornveil system" footer.
+
+**UI follow-ups (cannot be done via API):**
+- Pin top 6 repos on org profile: `signet, mycelium, rigrun, pyros, hawkstack, alchemist` — https://github.com/organizations/thornveil-ai/settings/profile
+- Enable `cosign-release.yml` + `sbom.yml` as org-required workflows once 5+ repos have CI workflows wired — https://github.com/organizations/thornveil-ai/settings/actions
+- Per-repo Settings → Code security → Dependabot + CodeQL audit (may already be on by inheritance; UI verifies)
+
 ---
 
 ## Visibility tiers
