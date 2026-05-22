@@ -49,14 +49,26 @@ emit() {
 }
 
 # ---------- API helpers ----------
+# Note: `gh api` writes the error JSON to stdout on 404. Without explicit
+# exit-code checks, callers would treat the error body as content. Both
+# helpers below check `$?` and return empty on any non-zero exit.
+
 fetch_content() {
-  # Fetch raw content of a path; returns empty if missing
-  gh api "repos/thornveil-ai/$REPO/contents/$1" --jq '.content' 2>/dev/null | base64 -d 2>/dev/null
+  # Fetch raw content of a path; returns empty if missing or error.
+  local b64
+  b64=$(gh api "repos/thornveil-ai/$REPO/contents/$1" --jq '.content' 2>/dev/null)
+  if [ "$?" -eq 0 ] && [ -n "$b64" ]; then
+    echo "$b64" | base64 -d 2>/dev/null
+  fi
 }
 
 file_exists() {
-  # Returns SHA if path exists, empty otherwise
-  gh api "repos/thornveil-ai/$REPO/contents/$1" --jq '.sha' 2>/dev/null
+  # Returns SHA if path exists, empty otherwise.
+  local sha
+  sha=$(gh api "repos/thornveil-ai/$REPO/contents/$1" --jq '.sha' 2>/dev/null)
+  if [ "$?" -eq 0 ] && [ -n "$sha" ]; then
+    echo "$sha"
+  fi
 }
 
 # ---------- Header ----------
