@@ -15,7 +15,13 @@
 #
 # Reference: thornveil-ai/.github/REPO_STANDARDS.md sections 3, 5, 6c, 6d, 6g, 14
 
-set -uo pipefail
+# NOTE: deliberately NOT using `set -o pipefail`. Many checks below use
+# `echo "$LARGE_CONTENT" | grep -q PATTERN`. When grep -q finds a match it
+# closes the pipe early, causing the upstream echo to fail with SIGPIPE.
+# With pipefail enabled, that upstream failure makes the entire pipeline
+# return non-zero — even though the grep itself matched. That false-NOMATCH
+# silently inverts every content check. Audit is read-only/idempotent, so
+# the safety guarantees pipefail provides aren't needed here.
 
 REPO="${1:?usage: bash audit-repo.sh <repo-name> [tier]}"
 TIER="${2:-auto}"
