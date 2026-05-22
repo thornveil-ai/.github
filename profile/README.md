@@ -60,8 +60,8 @@ We work directly with operators in federal red-team programs, counter-UAS, regul
 Each channel is scoped:
 
 - **Engagement** — product evaluation, joint development, federal procurement intake: [jesse@thornveil.ai](mailto:jesse@thornveil.ai)
-- **Security** — vulnerability disclosure, security questions: [security@thornveil.ai](mailto:security@thornveil.ai)
-- **Legal / export controls** — EAR/ITAR, licensing, commercial terms: [legal@thornveil.ai](mailto:legal@thornveil.ai)
+- **Security** — vulnerability disclosure, security questions: [jesse@thornveil.ai](mailto:jesse@thornveil.ai)
+- **Legal / export controls** — EAR/ITAR, licensing, commercial terms: [jesse@thornveil.ai](mailto:jesse@thornveil.ai)
 - **Site** — [thornveil.ai](https://thornveil.ai)
 
 ---
