@@ -4,7 +4,7 @@
 
 Thornveil builds AI systems that run on customer hardware, in customer environments, under customer authorization. No cloud dependency. No subscription leash. No telemetry to vendors.
 
-We ship to defense, regulated industry, and data-sensitive teams who cannot send their data to someone else's servers.
+We build for defense, regulated industry, and data-sensitive teams who cannot send their data to someone else's servers.
 
 > We build AI systems designed to be deployed — not demoed.
 
@@ -26,34 +26,34 @@ Thornveil builds that application layer for customers who own their hardware, th
 
 ## Systems
 
-Six production systems that interlock as a systems-of-systems stack. **Signet** authorizes capability-bounded actions for **Auspex** (autonomous offensive security) and any other agent that needs a gate. **Pyros** is the self-regulating inference engine consumed inside **RigRun** (chat application) and **Mycelium** (distributed mesh). **HawkStack** is the compute-aware perception-backbone family that feeds Canopy and other perception consumers.
+Six systems, at different stages of maturity, that interlock as a systems-of-systems stack. **Signet** authorizes capability-bounded actions for **Auspex** (autonomous offensive security) and any other agent that needs a gate. **Pyros** is the inference engine consumed inside **RigRun** (chat application) and **Mycelium** (distributed mesh). **HawkStack** is the compute-aware perception-backbone family that feeds Canopy and other perception consumers.
 
 ### Open source
 
-- **[Signet](https://github.com/thornveil-ai/signet)** — Capability-based safety gates for LLM agents. The model proposes; Signet authorizes. Apache-2.0.
-- **[Alchemist](https://github.com/thornveil-ai/alchemist)** — Algorithm-aware C-to-Rust translation. One command, local LLM, five mandatory correctness gates. Apache-2.0.
+- **[Signet](https://github.com/thornveil-ai/signet)** — Capability-based safety gates for LLM agents. The model proposes; Signet authorizes. Apache-2.0. v0.1, on PyPI.
+- **[Alchemist](https://github.com/thornveil-ai/alchemist)** — Algorithm-aware C-to-Rust translation. One command, local LLM, five mandatory correctness gates. Apache-2.0. Research prototype.
 
 ### Commercial — sovereign AI products
 
-- **[RigRun](https://github.com/thornveil-ai/rigrun-overview)** — Professional AI chat with classification-gated routing. Local, IL5-fit, federal pipeline.
-- **[Mycelium](https://github.com/thornveil-ai/mycelium-overview)** — Distributed AI mesh. Substitute-on-failure inference across heterogeneous nodes.
-- **[HawkStack](https://github.com/thornveil-ai/hawkstack-paper)** — Compute-aware neural-architecture topology theory. Sub-million-parameter perception backbones across six domains.
+- **[RigRun](https://github.com/thornveil-ai/rigrun-overview)** — Professional AI chat with classification-gated routing. Local-first, designed for IL5. v1.0.4.
+- **[Mycelium](https://github.com/thornveil-ai/mycelium-overview)** — Distributed AI mesh. Substitute-on-failure inference across heterogeneous nodes. v1.0.0.
+- **[HawkStack](https://github.com/thornveil-ai/hawkstack-paper)** — Compute-aware neural-architecture topology theory. Sub-million-parameter perception backbones across six domains. Research; preprint in preparation.
 
 ### Federal — gated
 
-- **[Auspex](https://github.com/thornveil-ai/auspex-contact)** — AI red team gated by Signet. Federal/IL5-fit autonomous offensive security. EAR ECCN 4D004.
+- **[Auspex](https://github.com/thornveil-ai/auspex-contact)** — AI red team gated by Signet. Autonomous offensive security, designed for federal/IL5 use. EAR ECCN 4D004.
 
 ## What's shipping
 
-- **RigRun v0.9** (February 2026) — Vision and image analysis, agentic tool use with approval flow, versioned artifacts, projects with classification floors, deep research with PDF reports, Docker-sandboxed code interpreter, local image generation.
-- **HawkStack** — Six-domain results verified at 38K to 1.77M parameters: IRST (NUDT-SIRST 80.06% IoU), sonar (UATD 79.81% mAP), PCB defects (DeepPCB 97.63% mAP at 84K params), histopath (PanNuke), thermal-drone, ECG arrhythmia.
-- **NIST 800-53 implementation** — 44 controls implemented and tested across the RigRun stack. IL5-fit. FedRAMP path active.
+- **RigRun** (latest tag v1.0.4) — Vision and image analysis, agentic tool use with approval flow, versioned artifacts, projects with classification floors, deep research with PDF reports, Docker-sandboxed code interpreter, local image generation.
+- **HawkStack** — Six-domain results verified at 38K to 1.77M parameters: IRST (NUDT-SIRST 80.06% IoU), sonar (UATD 79.81% mAP), PCB defects (DeepPCB 97.63% mAP at 84K params), histopath (PanNuke), thermal-drone; plus a partial seventh domain, ECG arrhythmia (3 of 5 AAMI classes).
+- **NIST 800-53 design** — the RigRun stack is designed against 44 controls. No ATO or FedRAMP authorization is held.
 - **Test discipline** — 6,900+ tests across the RigRun stack alone (Go unit, Vitest, Playwright E2E). Substantive coverage across all systems.
 - **Org infrastructure** — Tier-graded ruleset enforcement, org-wide label sync, signed commits, reproducible builds, cosign-signed releases.
 
 ## Who we work with
 
-We work directly with operators in federal red-team programs, counter-UAS, regulated industry, and defense primes building under accreditation. Engagements start with an NDA, technical evaluation, and an export-control screen where applicable. We do not run public demos of gated systems.
+We are looking for evaluation partners in federal red-team programs, counter-UAS, regulated industry, and defense primes building under accreditation. Engagements start with an NDA, technical evaluation, and an export-control screen where applicable. We do not run public demos of gated systems.
 
 ## Contact
 
