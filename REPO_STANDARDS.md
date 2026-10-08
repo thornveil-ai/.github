@@ -141,7 +141,7 @@ Examples:
 ```
 > **Public OSS. v0.1.4 production.** Apache-2.0 capability-based safety gate for LLM agents.
 
-> **Private. v1.0 production — customer-deployed.** Distributed AI mesh for inference across heterogeneous nodes.
+> **Private. v1.0 — cosign-signed release.** Distributed AI mesh for inference across heterogeneous nodes.
 
 > **Private. Phase 0 — in active development.** Multi-modal counter-UAS situational awareness. Most layers scaffolded, mesh and decision engine not yet wired into the main binary.
 ```
@@ -550,7 +550,7 @@ Live in `CHANGELOG.md`. The release description on GitHub copies from CHANGELOG 
 ```markdown
 # Mycelium
 
-> **Private. v1.0 production — SOCPAC-deployed.** Distributed AI mesh for substitute-on-failure inference across heterogeneous nodes.
+> **Private. v1.0 — cosign-signed release.** Distributed AI mesh for substitute-on-failure inference across heterogeneous nodes.
 
 [![License](https://img.shields.io/badge/license-proprietary-red)](LICENSE)
 [![Version](https://img.shields.io/github/v/tag/thornveil-ai/mycelium)](https://github.com/thornveil-ai/mycelium/releases)

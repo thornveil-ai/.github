@@ -1,6 +1,6 @@
 # Contributing to Thornveil
 
-Thanks for taking the time to contribute. Thornveil ships infrastructure that customers run in production, in regulated environments, and behind air-gaps. We hold contributions to a high bar — and we're glad to work with you to get yours across it.
+Thanks for taking the time to contribute. Thornveil builds infrastructure designed to run in regulated environments and behind air-gaps. We hold contributions to a high bar — and we're glad to work with you to get yours across it.
 
 ## Before You Start
 
