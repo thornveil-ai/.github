@@ -1,68 +1,58 @@
 # Thornveil
 
-**Sovereign AI infrastructure. Built at the edge.**
+**Tactical autonomy, agent governance and edge AI R&D.**
 
 Thornveil builds AI systems that run on customer hardware, in customer environments, under customer authorization. No cloud dependency. No subscription leash. No telemetry to vendors.
 
 We build for defense, regulated industry, and data-sensitive teams who cannot send their data to someone else's servers.
 
-> We build AI systems designed to be deployed — not demoed.
+> We build AI systems designed to be deployed, not demoed.
 
 ## What we build for
 
-The dominant AI deployment pattern — send-the-query-to-a-vendor's-cloud — is structurally misaligned with sovereign work. Federal programs, regulated industry, and data-sensitive operators cannot route their queries through someone else's enclave, and they cannot wait for the vendor's next compliance cycle to ship.
+Most AI today means sending every query to a vendor's cloud. That doesn't work for federal programs, regulated industry, or data-sensitive operators who can't route their queries through someone else's enclave.
 
-Local LLM serving is now economically and technically viable: capable open models run on commodity GPUs, structured generation is solved, and inference engines reach production reliability. The remaining gap is the application layer — the chat clients, agent gates, distributed inference mesh, and perception backbones that turn raw inference into deployable systems.
+Local LLM serving is now economically and technically viable: capable open models run on commodity GPUs, structured generation is solved, and inference engines reach production reliability. The remaining gap is the application layer: the chat clients, agent gates and distributed inference mesh that turn raw inference into deployable systems.
 
-Thornveil builds that application layer for customers who own their hardware, their data, and their authorization boundary — and intend to keep it that way.
+Thornveil builds that application layer for customers who own their hardware, their data, and their authorization boundary.
 
 ## Engineering principles
 
 - **Pure Go for the AI stack, pure Rust for embedded.** One binary per system. No Python in production paths.
-- **Memory-safe by default.** Memory-corruption bugs that would crash a quadcopter sink a boat.
+- **Memory-safe by default.**
 - **Signed and reproducible.** Every release is cosign-signed. Provenance is non-negotiable.
 - **Local-first.** Privacy is the default architecture, not a feature toggle.
 - **Dogfooded.** We use our own systems to build our own systems.
 
 ## Systems
 
-Six systems, at different stages of maturity, that interlock as a systems-of-systems stack. **Signet** authorizes capability-bounded actions for **Auspex** (autonomous offensive security) and any other agent that needs a gate. **Pyros** is the inference engine consumed inside **RigRun** (chat application) and **Mycelium** (distributed mesh). **HawkStack** is the compute-aware perception-backbone family that feeds Canopy and other perception consumers.
+Five systems, at different stages of maturity, that work together as one stack. **Signet** authorizes capability-bounded actions for any agent that needs a gate. **Pyros** is the inference engine inside **RigRun** (chat application) and **Mycelium** (distributed mesh). **Navigator** is the internal agent-production pipeline used to build them.
 
 ### Open source
 
-- **[Signet](https://github.com/thornveil-ai/signet)** — Capability-based safety gates for LLM agents. The model proposes; Signet authorizes. Apache-2.0. v0.1, on PyPI.
-- **[Alchemist](https://github.com/thornveil-ai/alchemist)** — Algorithm-aware C-to-Rust translation. One command, local LLM, five mandatory correctness gates. Apache-2.0. Research prototype.
+- **[Signet](https://github.com/thornveil-ai/signet)**: Capability-based safety gates for LLM agents. The model proposes; Signet authorizes. Apache-2.0, on PyPI.
 
-### Commercial — sovereign AI products
+### Products
 
-- **[RigRun](https://github.com/thornveil-ai/rigrun-overview)** — Professional AI chat with classification-gated routing. Local-first, designed for IL5. v1.0.4.
-- **[Mycelium](https://github.com/thornveil-ai/mycelium-overview)** — Distributed AI mesh. Substitute-on-failure inference across heterogeneous nodes. v1.0.0.
-- **[HawkStack](https://github.com/thornveil-ai/hawkstack-paper)** — Compute-aware neural-architecture topology theory. Sub-million-parameter perception backbones across six domains. Research; preprint in preparation.
-
-### Federal — gated
-
-- **[Auspex](https://github.com/thornveil-ai/auspex-contact)** — AI red team gated by Signet. Autonomous offensive security, designed for federal/IL5 use. EAR ECCN 4D004.
+- **[RigRun](https://github.com/thornveil-ai/rigrun-overview)**: Professional AI chat with classification-gated routing. Local-first, designed for IL5. v1.0.4.
+- **[Mycelium](https://github.com/thornveil-ai/mycelium-overview)**: Distributed AI mesh. Substitute-on-failure inference across heterogeneous nodes. v1.0.0.
+- **[Pyros](https://github.com/thornveil-ai/pyros-overview)**: Adaptive inference engine that wraps any model backend.
 
 ## What's shipping
 
-- **RigRun** (latest tag v1.0.4) — Vision and image analysis, agentic tool use with approval flow, versioned artifacts, projects with classification floors, deep research with PDF reports, Docker-sandboxed code interpreter, local image generation.
-- **HawkStack** — Six-domain results verified at 38K to 1.77M parameters: IRST (NUDT-SIRST 80.06% IoU), sonar (UATD 79.81% mAP), PCB defects (DeepPCB 97.63% mAP at 84K params), histopath (PanNuke), thermal-drone; plus a partial seventh domain, ECG arrhythmia (3 of 5 AAMI classes).
-- **NIST 800-53 design** — the RigRun stack is designed against 44 controls. No ATO or FedRAMP authorization is held.
-- **Test discipline** — 6,900+ tests across the RigRun stack alone (Go unit, Vitest, Playwright E2E). Substantive coverage across all systems.
-- **Org infrastructure** — Tier-graded ruleset enforcement, org-wide label sync, signed commits, reproducible builds, cosign-signed releases.
+- **RigRun** (latest tag v1.0.4): Vision and image analysis, agentic tool use with approval flow, versioned artifacts, projects with classification floors, deep research with PDF reports, Docker-sandboxed code interpreter, local image generation.
+- **NIST 800-53 design**: the RigRun stack is designed against 44 controls. No ATO or FedRAMP authorization is held.
+- **Test discipline**: 6,900+ tests across the RigRun stack alone (Go unit, Vitest, Playwright E2E).
+- **Org infrastructure**: ruleset enforcement, org-wide label sync, signed commits, reproducible builds, cosign-signed releases.
 
 ## Who we work with
 
-We are looking for evaluation partners in federal red-team programs, counter-UAS, regulated industry, and defense primes building under accreditation. Engagements start with an NDA, technical evaluation, and an export-control screen where applicable. We do not run public demos of gated systems.
+We are looking for evaluation partners in federal programs, regulated industry, and defense primes building under accreditation. Engagements start with an NDA and a technical evaluation.
 
 ## Contact
 
-Each channel is scoped:
-
-- **Engagement** — product evaluation, joint development, federal procurement intake: [jesse@thornveil.ai](mailto:jesse@thornveil.ai)
-- **Security** — vulnerability disclosure, security questions: [jesse@thornveil.ai](mailto:jesse@thornveil.ai)
-- **Legal / export controls** — EAR/ITAR, licensing, commercial terms: [jesse@thornveil.ai](mailto:jesse@thornveil.ai)
-- **Site** — [thornveil.ai](https://thornveil.ai)
+- **Engagement, security and licensing**: [jesse@thornveil.ai](mailto:jesse@thornveil.ai)
+- **Site**: [thornveil.ai](https://thornveil.ai)
 
 ---
 
