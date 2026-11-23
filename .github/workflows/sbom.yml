@@ -62,7 +62,7 @@ jobs:
           cyclonedx-npm --output-file "${{ inputs.output-name }}.cdx.json"
 
       - name: Upload SBOM as workflow artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ inputs.output-name }}-cyclonedx
           path: ${{ inputs.target-dir }}/${{ inputs.output-name }}.cdx.json
