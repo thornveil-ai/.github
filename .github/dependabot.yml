@@ -1,5 +1,24 @@
-# Thornveil org default Dependabot config.
-# Each repo overrides by adding its own .github/dependabot.yml.
+# Dependabot configuration for thornveil-ai/.github.
+#
+# GitHub runs this file against the .github repository itself (it is not
+# inherited by other org repos), so only github-actions is enabled here.
+#
+# Per-repo ecosystem templates (copy relevant blocks into each repo's own
+# .github/dependabot.yml):
+#
+#   gomod / pip / npm / cargo:
+#     - package-ecosystem: "<gomod|pip|npm|cargo>"
+#       directory: "/"
+#       schedule:
+#         interval: "weekly"
+#         day: "monday"
+#       open-pull-requests-limit: 5
+#       commit-message:
+#         prefix: "deps"
+#         include: "scope"
+#       labels:
+#         - "type: chore"
+#         - "area: deps"
 #
 # Mycelium override note (handled in mycelium's own dependabot.yml):
 #   Alerts on; security updates DISABLED for paths under internal/mesh/.
@@ -8,62 +27,6 @@
 
 version: 2
 updates:
-  # Go modules
-  - package-ecosystem: "gomod"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-    open-pull-requests-limit: 5
-    commit-message:
-      prefix: "deps"
-      include: "scope"
-    labels:
-      - "type: chore"
-      - "area: deps"
-
-  # Python (Poetry/PEP 621/setup.py)
-  - package-ecosystem: "pip"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-    open-pull-requests-limit: 5
-    commit-message:
-      prefix: "deps"
-      include: "scope"
-    labels:
-      - "type: chore"
-      - "area: deps"
-
-  # npm/yarn
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-    open-pull-requests-limit: 5
-    commit-message:
-      prefix: "deps"
-      include: "scope"
-    labels:
-      - "type: chore"
-      - "area: deps"
-
-  # Cargo (Rust)
-  - package-ecosystem: "cargo"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-    open-pull-requests-limit: 5
-    commit-message:
-      prefix: "deps"
-      include: "scope"
-    labels:
-      - "type: chore"
-      - "area: deps"
-
   # GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
